@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form Validation</title>
+
+    <style>
+      #signupform {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 70vh;
+      }
+
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="signupform">
+      <h2>Registration Form</h2>
+      <form  id="registrationForm" onsubmit="return validateForm()" method="">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required /><br />
+        <span class="error" id="nameError"></span><br />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required /><br />
+        <span class="error" id="emailError"></span><br />
+
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+        /><br /><br />
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          required
+        /><br />
+        <span class="error" id="passwordError"></span><br />
+
+        <label for="mobile">Mobile Number:</label>
+        <input
+          type="tel"
+          id="mobile"
+          name="mobile"
+          pattern="[0-9]{10}"
+          required
+        /><br />
+        <span class="error" id="mobileError"></span><br />
+
+        <input type="submit" value="Submit" />
+      </form>
+    </section>
+
+    <!-- Javascript -->
+    <script>
+      function validateForm() {
+        // Get form values
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+        var mobile = document.getElementById("mobile").value;
+
+        // Reset error messages
+        document.getElementById("nameError").innerHTML = "";
+        document.getElementById("emailError").innerHTML = "";
+        document.getElementById("passwordError").innerHTML = "";
+        document.getElementById("mobileError").innerHTML = "";
+
+        // Validate Name
+        if (name === "") {
+          document.getElementById("nameError").innerHTML = "Name is required.";
+          return false;
+        }
+
+        // Validate Email
+        if (!email.match(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/)) {
+          document.getElementById("emailError").innerHTML =
+            "Invalid email format.";
+          return false;
+        }
+
+        // Validate Password
+        if (password === "") {
+          document.getElementById("passwordError").innerHTML =
+            "Password is required.";
+          return false;
+        }
+
+        // Validate Confirm Password
+        if (confirmPassword !== password) {
+          document.getElementById("passwordError").innerHTML =
+            "Passwords do not match.";
+          return false;
+        }
+
+        // Validate Mobile Number
+        if (!mobile.match(/^[0-9]{10}$/)) {
+          document.getElementById("mobileError").innerHTML =
+            "Invalid mobile number.";
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </body>
+</html>
